@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+
+const countryCityData = {
+  India: ["Mumbai", "Delhi", "Bangalore"],
+  USA: ["New York", "Los Angeles", "Chicago"],
+};
+
+const Dropdown = () => {
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [cities, setCities] = useState([]);
+
+  const handleCountryChange = (event) => {
+    const country = event.target.value;
+    setSelectedCountry(country);
+    setCities(countryCityData[country] || []);
+  };
+
+  return (
+    <div>
+      <div>
+        <label>
+          Select Country:
+          <select value={selectedCountry} onChange={handleCountryChange}>
+            <option value="">--Select Country--</option>
+            {Object.keys(countryCityData).map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      {cities.length > 0 && (
+        <div>
+          <label>
+            Select City:
+            <select>
+              <option value="">--Select City--</option>
+              {cities.map((city) => (
+                <option key={city} value={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Dropdown;
